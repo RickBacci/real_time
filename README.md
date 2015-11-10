@@ -1,5 +1,7 @@
 ## About the Project
 
+[Real-time project](https://github.com/turingschool/curriculum/blob/master/source/projects/real_time.markdown)
+
 Every project that we've done so far—with the exception of Game Time—has been bound by the whole HTTP request/response cycle. In this project, we're going to head off the beaten track for a bit and build real time applications with WebSockets. When the server gets new information, it pushes it out to all of the connected clients.
 
 Your mission in this project is to build one of two real-time applications based on the user personas explained below. You will choose the approach that you feel works best.
@@ -24,24 +26,6 @@ This is your last project at Turing, which means you're about to go off and be d
 - Explore a front-end framework like Ember or React to handle all of the client-side concerns of your application.
 
 ## Project Concepts
-
-### Crowdsource
-
-#### Case Studies and User Flows
-
-- Steve is an instructor at a seven month developer training program in Colorado. In the middle of a long rant about the merits of CoffeeScript, he wants to check for student understanding. He could pause for a moment and ask the room if they have any idea what he's talking about, but he suspects they'll just smile and nod like they always do. He knows that some students may not want to admit in front of the whole group that they neither understand what Steve is talking about, nor do they particularly care.
-  - Steve decides to use Crowdsource to anonymously poll the room.
-  - He goes to the site to generate a new poll and adds three potential responses: "This is old hat to me", "I have an okay understanding of this", "I have no idea what you're babbling about".
-  - He gets back two links: a admin view that shows the poll and a voting page that shows the options.
-  - He drops the link into Slack and his students vote.
-  - Steve feels pleased when he sees that 100% of his students are absolute masters of everything he has ever taught.
-  - He turns off the poll before a certain student that comes late every day arrives and messes up his perfect score.
-- Tan is a software engineer who often finds him self in the odd position of not having enough to do. As a result, he often stops by his old school to grab lunch or a cup of decaffeinated tea with the current students there. But, the neighborhood gets pretty busy around lunch time, and trying to figure out where to eat can take a while and by the time everyone agrees, most places are already full.
-  - These days, Tan uses Crowdsource to tally everyone's preferences before he arrives.
-  - Tan puts in three or four local places into the application and generates a new poll. He chooses to share the results as they come in. As a result each voting page is also showing the results in real time as they come in.
-  - Before leaving the house, he realizes that he is going to need to have this decided by the time he gets there. He chooses a time to have the poll automatically close.
-  - He shares a link to the poll with his friends.
-  - Tan arrives at his old school and checks his phone. He sees that the group has made a decision and on of his friends had already headed over to grab a table.
 
 ### Personal Time
 
