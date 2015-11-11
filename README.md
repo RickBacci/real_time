@@ -1,6 +1,13 @@
+## Setup
+
+* *npm install* - to run locally
+* *npm run dev* - heroku will compile assets with webpack.prod.config.js and run the express web server in server.js
+
+
 ## About the Project
 
-[Real-time project](https://github.com/turingschool/curriculum/blob/master/source/projects/real_time.markdown)
+[Production link](realtime-175.herokuapp.com)
+
 
 Every project that we've done so far—with the exception of Game Time—has been bound by the whole HTTP request/response cycle. In this project, we're going to head off the beaten track for a bit and build real time applications with WebSockets. When the server gets new information, it pushes it out to all of the connected clients.
 
@@ -101,3 +108,9 @@ Does it have the expected features?
 * 3 - All planned features were delivered
 * 2 - Some features were sacrificed to meet the deadline
 * 1 - Major features are missing and/or the application is not deployed to production
+
+[Real-time project link](https://github.com/turingschool/curriculum/blob/master/source/projects/real_time.markdown)
+
+
+## Special thanks for the great template
+[Alan Smith react/node starter template](https://github.com/alanbsmith/react-node-example)
