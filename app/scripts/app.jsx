@@ -1,20 +1,23 @@
 import '../styles/base.css';
 import React from 'react/addons';
 
+let root_url = "http://localhost:8080/webpack-dev-server/"
+
 let Landing = React.createClass({
   getInitialState: function () {
     return { timeSlots: [], scheduleUrl: '', appointmentsUrl: '' }
   },
   handleScheduleButtonClick: function() {
-    this.setState({ timeSlots: ["Rick Bacci"] });
+    this.setState({ scheduleUrl: "Scheduling Url: " + root_url + "/schedule/175" });
+    this.setState({ appointmentsUrl: "Appointments Url: " + root_url + "/appointments/175" });
   },
   render: function() {
     return(
-      <div>
+      <div className='text-center'>
         <h1>{ this.props.name }!</h1>
-        <h3>Scheduling Url:{ this.state.timeSlots }</h3>
-        <h3>Appointments Url:{ this.state.timeSlots }</h3>
         <NewScheduleButton onButtonClick={this.handleScheduleButtonClick} />
+        <h5>{ this.state.scheduleUrl }</h5>
+        <h5>{ this.state.appointmentsUrl }</h5>
       </div>
     )
   }
