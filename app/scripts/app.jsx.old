@@ -1,0 +1,193 @@
+import '../styles/base.css';
+import React from 'react/addons';
+
+// Store timeslots as plain js objects as this.state.timeSlots
+// When a user adds a new timeslot, add it with setState
+// Take this.state.timeSLots, and render react stuff
+let root_url = "http://localhost:8080/webpack-dev-server/"
+
+let Landing = React.createClass({
+  getInitialState: function () {
+    // GOAL add multiple timestamps
+    //
+    // When a user inputs text in start time and end time
+    // And presses save timeslot
+    // Then update this.state.timeSlots
+    return {
+      timeSlots: [],
+      scheduleUrl: '',
+      appointmentsUrl: '',
+      dateButtonWasClicked: false,
+      timeSlotButtonWasClicked: false,
+      startTime: "",
+      endTime: ""
+    }
+  },
+  handleScheduleButtonClick: function() {
+    this.setState({ scheduleUrl: "Scheduling Url: " + root_url + "/schedule/175" });
+    this.setState({ appointmentsUrl: "Appointments Url: " + root_url + "/appointments/175" });
+  },
+  handleDateButtonClick: function(event) {
+    console.log('in handle date button click')
+
+    this.setState({ dateButtonWasClicked:  true });
+  },
+  handleTimeSlotButtonClick: function(event) {
+    console.log('in handle time slot button click')
+
+    this.setState({ timeSlotButtonWasClicked:  true });
+
+  },
+
+  render: function() {
+    let Child = ''
+    if (this.state.dateButtonWasClicked === true) {
+      Child = <AddTimeSlotForm ref='asdf' onTimeSlotButtonClick={ this.handleTimeSlotButtonClick }/>
+
+      // think i need to store the date for these timeslots somewhere
+      // probably a hash, maybe with the url that is created, then inside of it
+      // store the date as another hash key and the timeslots as elements in an array
+      //
+      // when the date button is clicked i need the  AddTimeSlotForm to appear
+      // along with a button that gives the enables the user to add another timeslot to that date
+
+      // debugger;
+
+
+      // this is something Lovisa sent me, i don't get where it goes.
+      // var time = this.state.timeslots
+      // time.concat(Child)
+      // this.setState({ timeslots: time });
+    }
+
+    if (this.state.timeSlotButtonWasClicked === true) {
+      let timeSlot = ''
+      debugger;
+      // When a user clicks to add a new time slot
+      // timeslot = {date: '', startTime: <this.state>, endTime: <this.state>};
+      // this.setState ...
+      timeSlot = <AddTimeSlotForm onTimeSlotButtonClick={ this.handleTimeSlotButtonClick }/>
+      this.state.timeSlots.push(timeSlot);
+    }
+
+    console.log(this.state.timeSlots)
+    return(
+
+      <div className='text-center'>
+        <h1>{ this.props.name }!</h1>
+        <NewScheduleButton onButtonClick={ this.handleScheduleButtonClick } />
+        <h5>{ this.state.scheduleUrl }</h5>
+        <h5>{ this.state.appointmentsUrl }</h5>
+        <AddDateForm onDateButtonClick={ this.handleDateButtonClick }/>
+
+        <div className="timeslots">
+          {Child}
+        </div>
+      </div>
+    )
+  }
+});
+
+
+let NewScheduleButton = React.createClass({
+  handleClick: function() {
+    this.props.onButtonClick();
+  },
+  render: function() {
+    return(
+      <button className='btn btn-primary btn-large' onClick={ this.handleClick } >
+      Create New Schedule
+      </button>
+    )
+  }
+});
+
+let AddDateForm = React.createClass({
+  handleClick: function() {
+    event.preventDefault();
+
+    var date = React.findDOMNode(this.refs.date).value.trim();
+    this.props.onDateButtonClick();
+  },
+  render: function() {
+    // var dateToday = function() {
+    // check moment.js
+    return(
+      <div className="col-sm-10 col-sm-offset-1">
+        <div className="row">
+          <form className="form-horizontal" role="form">
+            <div className="form-group">
+              <label htmlFor="date" className="text-right col-sm-4">Date:</label>
+              <div className="col-sm-4">
+                <input type="date" ref="date" className="form-control" name='dateInput' id="dateInput" defaultValue={ '' } />
+              </div>
+              <div className="col-sm-1">
+                <button type="submit" className="btn btn-primary" onClick={ this.handleClick }>
+                  Add Date
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+});
+
+let AddTimeSlotForm = React.createClass({
+    getInitialState: function() {
+      return { startTime: '', endTime: '' }
+    },
+    handleClick: function() {
+      event.preventDefault();
+
+      var startTime = React.findDOMNode(this.refs.startTime).value.trim();
+      var endTime   = React.findDOMNode(this.refs.endTime).value.trim();
+
+
+      this.setState({ startTime: startTime, endTime: endTime });
+      this.props.onTimeSlotButtonClick();
+
+      // is it here that i should setState for start and end times?
+      // props and state
+      // the Landing class doesn't need a timeSlots array, it needs a
+      // dates hash that contains hashes where the key is the date and the values are an array of timeslots
+      // all of those 'dates' need to be stored by the url that is created so they can be referenced later
+      //
+
+      console.log('in handleclick for timeslotform')
+
+      console.log(startTime)
+      console.log(endTime)
+    },
+    render: function() {
+      return(
+        <div className="col-sm-12">
+          <div className="row">
+            <form className="form-horizontal" role="form">
+              <div className="form-group">
+                <label htmlFor="time" className="text-right col-sm-1">Start Time:</label>
+                <div className="col-sm-4">
+                  <input type="text" ref="startTime" className="form-control" id="startTimeInput" />
+                </div>
+                <label htmlFor="time" className="text-right col-sm-1">End Time:</label>
+                <div className="col-sm-4">
+                  <input type="text" ref="endTime" className="form-control" id="endTimeInput" />
+                </div>
+                <div className="col-sm-1">
+                  <button type="submit" className="btn btn-primary" onClick={ this.handleClick }>
+                    Add Time Slot
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )
+    }
+});
+
+
+
+React.render(<Landing name='Real Time' />, document.getElementById('content'));
