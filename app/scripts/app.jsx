@@ -19,11 +19,31 @@ let ScheduleTable = React.createClass({
   render: function() {
     return(
       <div>
-        <NewScheduleButton />
-        <UrlTable urls={ this.props.urls }/>
-        <NewDateButton />
-        <ScheduleDateTable timeSlots={ this.props.timeSlots }/>
-        <GenerateICalButton />
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className='schedule-table panel panel-default'>
+              <div className='schedule-button'>
+                <div className='pull-left'>
+                  <NewDateButton />
+                </div>
+                <div className='pull-right'>
+                  <NewScheduleButton />
+                </div>
+              </div>
+              <div className='panel-body'>
+                <div className='well'>
+                  <ScheduleDateTable timeSlots={ this.props.timeSlots }/>
+                </div>
+                <GenerateICalButton />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-md-12'>
+            <UrlTable urls={ this.props.urls }/>
+          </div>
+        </div>
       </div>
     )
   }
@@ -33,8 +53,8 @@ let ScheduleTable = React.createClass({
 let NewScheduleButton = React.createClass({
   render: function() {
     return(
-      <div>
-        <button className='btn btn-primary btn-large'>
+      <div className='#schedule-button'>
+        <button className='btn btn-primary btn-large pull-right'>
           Create New Schedule
         </button>
       </div>
@@ -59,7 +79,7 @@ let SchedulerUrl = React.createClass({
   render: function() {
     return(
       <div>
-        <tr><th colSpan="3">{this.props.schedulerUrl}</th></tr>
+        { this.props.schedulerUrl }
       </div>
     )
   }
@@ -71,7 +91,7 @@ let ScheduleeUrl = React.createClass({
   render: function() {
     return(
       <div>
-        <tr><th colSpan="3">{this.props.scheduleeUrl}</th></tr>
+        { this.props.scheduleeUrl }
       </div>
     )
   }
@@ -82,7 +102,7 @@ let NewDateButton = React.createClass({
   render: function() {
     return(
       <div>
-        <button className='btn btn-primary btn-xs'>
+        <button className='btn btn-primary btn-large'>
           Add Date
         </button>
       </div>
@@ -102,30 +122,38 @@ let ScheduleDateTable = React.createClass({
     this.props.timeSlots.forEach(function(timeslot) {
 
         if (timeslot.scheduleDate !== lastDate) {
+
           let randKey = Math.floor(Math.random() * (max - min + 1)) + min;
-          rows.push(<ScheduleDateRow scheduleDate={ timeslot.scheduleDate } key={ randKey } />);
+
+          rows.push(
+            <table className='table'>
+              <tbody>
+                <ScheduleDateRow scheduleDate={ timeslot.scheduleDate } key={ randKey } />
+              </tbody>
+            </table>
+
+          );
         }
 
         let randKey = Math.floor(Math.random() * (max - min + 1)) + min;
 
         rows.push(
-          <ScheduleTimeSlotRow startTime={ timeslot.startTime } endTime={ timeslot.endTime } scheduled={ timeslot.scheduled } key={ randKey - 1 } />
+          <table className='table'>
+            <tbody>
+              <ScheduleTimeSlotRow startTime={ timeslot.startTime } endTime={ timeslot.endTime } scheduled={ timeslot.scheduled } key={ randKey - 1 } />
+            </tbody>
+          </table>
         );
 
         lastDate = timeslot.scheduleDate;
 
     });
     return (
-      <table>
-          <thead>
-              <tr>
-                  <th>Date</th>
-                  <th>Start Time</th>
-                  <th>End Time</th>
-              </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-      </table>
+          <table className='table'>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
     )
   }
 
@@ -135,7 +163,18 @@ let ScheduleDateRow = React.createClass({
   render: function() {
     return(
       <div>
-        <tr><th colSpan="3">{this.props.scheduleDate}</th></tr>
+        <tr>
+          <td colSpan='2' className='text-left'>
+            <span>
+              { this.props.scheduleDate }
+            </span>
+          </td>
+          <td  className='text-right'>
+            <span>
+              <AddTimeSlotButton />
+            </span>
+          </td>
+        </tr>
       </div>
     )
   }
@@ -145,18 +184,31 @@ let ScheduleDateRow = React.createClass({
 let ScheduleTimeSlotRow = React.createClass({
   render: function() {
     var scheduled = this.props.scheduled ?
+
       <span style={{color: 'red'}}>
         Scheduled
       </span> :
+      <span>
         <DeleteTimeSlotButton />
+      </span>
     return(
       <div>
         <tr>
-          <td>{this.props.startTime}</td>
-          <td>{this.props.endTime}</td>
-          <td>{scheduled}</td>
+          <td colSpan='2' className=''>
+            <div className='timeslot-row'>
+              <span>
+                {this.props.startTime}
+              </span>
+              <span> - </span>
+              <span>
+                {this.props.endTime}
+              </span>
+            </div>
+          </td>
           <td>
-            <AddTimeSlotButton />
+            <span className='pull-right'>
+              {scheduled}
+            </span>
           </td>
         </tr>
       </div>
@@ -165,14 +217,13 @@ let ScheduleTimeSlotRow = React.createClass({
 
 });
 
-
 let DeleteTimeSlotButton = React.createClass({
   render: function() {
     return(
       <div>
-        <button className='btn btn-primary btn-large'>
-          Remove Time Slot
-        </button>
+        <span>
+          <a href=''>Remove</a>
+        </span>
       </div>
     )
   }
@@ -183,9 +234,9 @@ let AddTimeSlotButton = React.createClass({
   render: function() {
     return(
       <div>
-        <button className='btn btn-primary btn-large'>
-          Add Time Slot
-        </button>
+        <span>
+          <a href="">Add Time Slot</a>
+        </span>
       </div>
     )
   }
@@ -196,7 +247,7 @@ let GenerateICalButton = React.createClass({
   render: function() {
     return(
       <div>
-        <button className='btn btn-primary btn-large'>
+        <button className='center btn btn-primary btn-large'>
           Generate iCal file
         </button>
       </div>

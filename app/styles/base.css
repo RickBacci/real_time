@@ -2,3 +2,23 @@ h1 {
   font-family: helvetica;
   font-weight: 200;
 }
+
+.schedule-button {
+  margin: 15px;
+  padding-bottom: 20px;
+}
+
+.schedule-table {
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%
+}
+
+.timeslot-row {
+  margin-left: 25px;
+}
