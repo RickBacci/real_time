@@ -23,13 +23,17 @@ let ScheduleTable = React.createClass({
           <div className='col-md-12'>
             <div className='schedule-table panel panel-default'>
               <div className='schedule-button'>
-                <div>
-                  <NewScheduleButton />
-                </div>
+                <NewScheduleButton />
               </div>
               <div className='panel-body'>
                 <div className='well'>
-                  <ScheduleDateTable timeSlots={ this.props.timeSlots }/>
+                  { this.props.urls.rootUrl + this.props.urls.schedulerU }
+                </div>
+                <div className='well'>
+                  <NewDateButton />
+                  <div>
+                    <ScheduleDateTable timeSlots={ this.props.timeSlots }/>
+                  </div>
                 </div>
                 <GenerateICalButton />
               </div>
@@ -52,7 +56,7 @@ let NewScheduleButton = React.createClass({
   render: function() {
     return(
       <div className='.schedule-button'>
-        <button className='center btn btn-primary btn-large'>
+        <button className='full-width btn btn-primary btn-large'>
           Create New Schedule
         </button>
       </div>
@@ -65,8 +69,12 @@ let UrlTable = React.createClass({
   render: function() {
     return(
       <div>
-        <SchedulerUrl />
-        <ScheduleeUrl />
+        <div>
+          <SchedulerUrl />
+        </div>
+        <div>
+          <ScheduleeUrl />
+        </div>
       </div>
     )
   }
@@ -89,7 +97,7 @@ let ScheduleeUrl = React.createClass({
   render: function() {
     return(
       <div>
-        { this.props.scheduleeUrl }
+        { this.props.urls }
       </div>
     )
   }
@@ -100,7 +108,7 @@ let NewDateButton = React.createClass({
   render: function() {
     return(
       <div>
-        <button className='btn btn-primary btn-large'>
+        <button className='bottom full-width btn btn-primary btn-large'>
           Add Date
         </button>
       </div>
@@ -221,7 +229,7 @@ let AddTimeSlotButton = React.createClass({
   render: function() {
     return(
       <div>
-          <a className='white' href="">Add Time Slot</a>
+        <a className='white' href="">Add Time Slot</a>
       </div>
     )
   }
@@ -246,8 +254,8 @@ let APPNAME = 'Real Time';
 
 let URLS = [
   {rootUrl: 'http://localhost:8080/webpack-dev-server'},
-  {SchedulerUrl: '/scheduler/175'},
-  {ScheduleeUrl: '/schedulee/175'},
+  {schedulerUrl: '/scheduler/175'},
+  {scheduleeUrl: '/schedulee/175'},
 ];
 
 let TIMESLOTS = [

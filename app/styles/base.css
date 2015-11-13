@@ -5,7 +5,7 @@ h1 {
 
 .schedule-button {
   margin: 15px;
-  padding-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .schedule-table {
@@ -13,9 +13,7 @@ h1 {
   margin-bottom: 15px;
 }
 
-.center {
-  margin-left: auto;
-  margin-right: auto;
+.full-width {
   width: 100%
 }
 
@@ -42,3 +40,7 @@ a:hover {
 .table th, .table td {
      border-top: none !important;
  }
+
+.bottom {
+  margin-bottom: 15px;
+}
