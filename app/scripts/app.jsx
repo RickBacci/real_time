@@ -126,23 +126,16 @@ let ScheduleDateTable = React.createClass({
           let randKey = Math.floor(Math.random() * (max - min + 1)) + min;
 
           rows.push(
-            <table className='table'>
-              <tbody>
-                <ScheduleDateRow scheduleDate={ timeslot.scheduleDate } key={ randKey } />
-              </tbody>
-            </table>
-
+            <div className='date-row'>
+              <ScheduleDateRow scheduleDate={ timeslot.scheduleDate } key={ randKey } />
+            </div>
           );
         }
 
         let randKey = Math.floor(Math.random() * (max - min + 1)) + min;
 
         rows.push(
-          <table className='table'>
-            <tbody>
-              <ScheduleTimeSlotRow startTime={ timeslot.startTime } endTime={ timeslot.endTime } scheduled={ timeslot.scheduled } key={ randKey - 1 } />
-            </tbody>
-          </table>
+          <ScheduleTimeSlotRow startTime={ timeslot.startTime } endTime={ timeslot.endTime } scheduled={ timeslot.scheduled } key={ randKey - 1 } />
         );
 
         lastDate = timeslot.scheduleDate;
@@ -163,16 +156,12 @@ let ScheduleDateRow = React.createClass({
   render: function() {
     return(
       <div>
-        <tr>
-          <td colSpan='2' className='text-left'>
-            <span>
+        <tr className='date-row'>
+          <td colSpan='2' className='text-left white'>
               { this.props.scheduleDate }
-            </span>
           </td>
-          <td  className='text-right'>
-            <span>
-              <AddTimeSlotButton />
-            </span>
+          <td className='date-row text-right white'>
+            <AddTimeSlotButton />
           </td>
         </tr>
       </div>
@@ -234,9 +223,7 @@ let AddTimeSlotButton = React.createClass({
   render: function() {
     return(
       <div>
-        <span>
-          <a href="">Add Time Slot</a>
-        </span>
+          <a className='white' href="">Add Time Slot</a>
       </div>
     )
   }

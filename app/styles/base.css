@@ -26,3 +26,11 @@ h1 {
 .timeslot-right {
   margin-right: 25px;
 }
+
+.date-row {
+  background-color: black;
+}
+
+.white {
+  color: white;
+}
