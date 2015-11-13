@@ -23,10 +23,7 @@ let ScheduleTable = React.createClass({
           <div className='col-md-12'>
             <div className='schedule-table panel panel-default'>
               <div className='schedule-button'>
-                <div className='pull-left'>
-                  <NewDateButton />
-                </div>
-                <div className='pull-right'>
+                <div>
                   <NewScheduleButton />
                 </div>
               </div>
@@ -36,6 +33,7 @@ let ScheduleTable = React.createClass({
                 </div>
                 <GenerateICalButton />
               </div>
+
             </div>
           </div>
         </div>
@@ -54,7 +52,7 @@ let NewScheduleButton = React.createClass({
   render: function() {
     return(
       <div className='.schedule-button'>
-        <button className='btn btn-primary btn-large pull-right'>
+        <button className='center btn btn-primary btn-large'>
           Create New Schedule
         </button>
       </div>

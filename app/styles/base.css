@@ -34,3 +34,11 @@ h1 {
 .white {
   color: white;
 }
+
+a:hover {
+  color: red;
+}
+
+.table th, .table td {
+     border-top: none !important;
+ }
