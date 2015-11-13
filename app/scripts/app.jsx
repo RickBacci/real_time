@@ -53,7 +53,7 @@ let ScheduleTable = React.createClass({
 let NewScheduleButton = React.createClass({
   render: function() {
     return(
-      <div className='#schedule-button'>
+      <div className='.schedule-button'>
         <button className='btn btn-primary btn-large pull-right'>
           Create New Schedule
         </button>
@@ -195,7 +195,7 @@ let ScheduleTimeSlotRow = React.createClass({
       <div>
         <tr>
           <td colSpan='2' className=''>
-            <div className='timeslot-row'>
+            <div className='timeslot-left'>
               <span>
                 {this.props.startTime}
               </span>
@@ -206,7 +206,7 @@ let ScheduleTimeSlotRow = React.createClass({
             </div>
           </td>
           <td>
-            <span className='pull-right'>
+            <span className='pull-right timeslot-right'>
               {scheduled}
             </span>
           </td>

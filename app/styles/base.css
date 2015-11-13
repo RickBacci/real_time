@@ -19,6 +19,10 @@ h1 {
   width: 100%
 }
 
-.timeslot-row {
+.timeslot-left {
   margin-left: 25px;
+}
+
+.timeslot-right {
+  margin-right: 25px;
 }
