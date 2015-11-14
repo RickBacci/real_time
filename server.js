@@ -1,14 +1,17 @@
-const path     = require('path');
+const path       = require('path');
+const express    = require('express');
+const app        = express();
+const bodyParser = require('body-parser')
+const generateId = require('./lib/generate-id');
 
-const express  = require('express');
-const app      = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.locals.title = 'Real Time';
 
 app.set('port', process.env.PORT || 8080)
 app.set('view engine', 'jade');
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (request, response) => {
   response.sendFile(__dirname + '/public/index.html')
