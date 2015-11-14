@@ -27,7 +27,7 @@ let ScheduleTable = React.createClass({
               </div>
               <div className='panel-body'>
                 <div className='well'>
-                  { this.props.urls.rootUrl + this.props.urls.schedulerU }
+                  // urls
                 </div>
                 <div className='well'>
                   <NewDateButton />
@@ -37,13 +37,7 @@ let ScheduleTable = React.createClass({
                 </div>
                 <GenerateICalButton />
               </div>
-
             </div>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col-md-12'>
-            <UrlTable urls={ this.props.urls }/>
           </div>
         </div>
       </div>
@@ -67,37 +61,19 @@ let NewScheduleButton = React.createClass({
 
 let UrlTable = React.createClass({
   render: function() {
+    let rootUrl      = this.props.urls[0];
+    let schedulerUrl = rootUrl + this.props.urls[1];
+    let scheduleeUrl = rootUrl + this.props.urls[2];
+
     return(
+
       <div>
         <div>
-          <SchedulerUrl />
+          { schedulerUrl }
         </div>
         <div>
-          <ScheduleeUrl />
+          { scheduleeUrl }
         </div>
-      </div>
-    )
-  }
-
-});
-
-let SchedulerUrl = React.createClass({
-  render: function() {
-    return(
-      <div>
-        { this.props.schedulerUrl }
-      </div>
-    )
-  }
-
-});
-
-
-let ScheduleeUrl = React.createClass({
-  render: function() {
-    return(
-      <div>
-        { this.props.urls }
       </div>
     )
   }
@@ -240,7 +216,7 @@ let GenerateICalButton = React.createClass({
   render: function() {
     return(
       <div>
-        <button className='center btn btn-primary btn-large'>
+        <button className='full-width btn btn-primary btn-large'>
           Generate iCal file
         </button>
       </div>
@@ -253,9 +229,11 @@ let GenerateICalButton = React.createClass({
 let APPNAME = 'Real Time';
 
 let URLS = [
-  {rootUrl: 'http://localhost:8080/webpack-dev-server'},
-  {schedulerUrl: '/scheduler/175'},
-  {scheduleeUrl: '/schedulee/175'},
+  {
+   rootUrl: 'http://localhost:8080/webpack-dev-server',
+   schedulerUrl: '/scheduler/175',
+   scheduleeUrl: '/schedulee/175'
+  },
 ];
 
 let TIMESLOTS = [
