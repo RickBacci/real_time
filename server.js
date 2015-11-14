@@ -1,15 +1,25 @@
-var path    = require('path');
+const path     = require('path');
 
-var express = require('express');
-var app     = express();
-var PORT    = process.env.PORT || 8080
+const express  = require('express');
+const app      = express();
+
+app.locals.title = 'Real Time';
+
+app.set('port', process.env.PORT || 8080)
+app.set('view engine', 'jade');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(request, response) {
+app.get('/', (request, response) => {
   response.sendFile(__dirname + '/public/index.html')
 });
 
-app.listen(PORT, function() {
-  console.log("Server is up and running on port: " + PORT)
-});
+
+if (!module.parent) {
+  app.listen(app.get('port'), () => {
+    console.log(`${app.locals.title} is running on port:  ${app.get('port')}.`);
+  });
+}
+
+module.exports = app;
+
