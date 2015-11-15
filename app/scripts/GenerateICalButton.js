@@ -4,11 +4,11 @@ export default React.createClass({
   render: function() {
     return(
       <div>
-        <a className='white' href="">Add Time Slot</a>
+        <button className='full-width btn btn-primary btn-large'>
+          Generate iCal file
+        </button>
       </div>
     )
   }
 
 });
-
-

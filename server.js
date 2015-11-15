@@ -35,6 +35,7 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket){
   console.log('A user connected', io.engine.clientsCount);
 
+  // debugger;
   socket.on('disconnect', function () {
     console.log('A user has disconnected.', io.engine.clientsCount);
 

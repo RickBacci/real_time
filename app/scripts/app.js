@@ -1,15 +1,19 @@
 import '../styles/base.css';
 
-import React from 'react/addons';
+import React from 'react';
 
-import GenerateICalButton   from './GenerateICalButton.jsx';
-import AddTimeSlotButton    from './AddTimeSlotButton.jsx';
-import NewScheduleButton    from './NewScheduleButton.jsx';
-import DeleteTimeSlotButton from './DeleteTimeSlotButton.jsx';
-import NewDateButton        from './NewDateButton.jsx';
-import UrlTable             from './UrlTable.jsx';
+import GenerateICalButton   from './GenerateICalButton.js';
+import AddTimeSlotButton    from './AddTimeSlotButton.js';
+import NewScheduleButton    from './NewScheduleButton.js';
+import DeleteTimeSlotButton from './DeleteTimeSlotButton.js';
+import NewDateButton        from './NewDateButton.js';
+import UrlTable             from './UrlTable.js';
 
 let ScheduleTable = React.createClass({
+  componentDidMount: function() {
+    // init socket
+    // send messages
+  },
   render: function() {
     return(
       <div>
@@ -46,11 +50,6 @@ let ScheduleTable = React.createClass({
 
 
 let ScheduleDateTable = React.createClass({
-  getInitialState: function() {
-    return {
-
-    };
-  },
   render: function() {
     let rows = [];
     let lastDate = null;
@@ -183,4 +182,3 @@ React.render(
   <ScheduleTable name={ APPNAME } timeSlots={ TIMESLOTS } urls={ URLS }/>,
     document.getElementById('content')
 );
-
