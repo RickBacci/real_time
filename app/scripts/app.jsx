@@ -1,19 +1,13 @@
 import '../styles/base.css';
+
 import React from 'react/addons';
 
-// - ScheduleTable
-//   - NewScheduleButton
-//   - UrlTable
-//     - SchedulerUrl
-//     - ScheduleeUrl
-//   - NewDateButton
-//   - ScheduleDateTable
-//     - ScheduleDateRow
-//     - ScheduleTimeSlotRow
-//       - startTime
-//       - endTime
-//       - AddTimeSlotButton
-//   -GenerateICalButton
+import GenerateICalButton   from './GenerateICalButton.jsx';
+import AddTimeSlotButton    from './AddTimeSlotButton.jsx';
+import NewScheduleButton    from './NewScheduleButton.jsx';
+import DeleteTimeSlotButton from './DeleteTimeSlotButton.jsx';
+import NewDateButton        from './NewDateButton.jsx';
+import UrlTable             from './UrlTable.jsx';
 
 let ScheduleTable = React.createClass({
   render: function() {
@@ -27,12 +21,15 @@ let ScheduleTable = React.createClass({
               </div>
               <div className='panel-body'>
                 <div className='well'>
-                  // urls
+                  <UrlTable urls={ this.props.urls }/>
                 </div>
                 <div className='well'>
                   <NewDateButton />
                   <div>
-                    <ScheduleDateTable timeSlots={ this.props.timeSlots }/>
+                    <ScheduleDateTable
+                      timeSlots={ this.props.timeSlots }
+
+                    />
                   </div>
                 </div>
                 <GenerateICalButton />
@@ -46,54 +43,14 @@ let ScheduleTable = React.createClass({
 
 });
 
-let NewScheduleButton = React.createClass({
-  render: function() {
-    return(
-      <div className='.schedule-button'>
-        <button className='full-width btn btn-primary btn-large'>
-          Create New Schedule
-        </button>
-      </div>
-    )
-  }
 
-});
-
-let UrlTable = React.createClass({
-  render: function() {
-    let rootUrl      = this.props.urls[0];
-    let schedulerUrl = rootUrl + this.props.urls[1];
-    let scheduleeUrl = rootUrl + this.props.urls[2];
-
-    return(
-
-      <div>
-        <div>
-          { schedulerUrl }
-        </div>
-        <div>
-          { scheduleeUrl }
-        </div>
-      </div>
-    )
-  }
-
-});
-
-let NewDateButton = React.createClass({
-  render: function() {
-    return(
-      <div>
-        <button className='bottom full-width btn btn-primary btn-large'>
-          Add Date
-        </button>
-      </div>
-    )
-  }
-
-});
 
 let ScheduleDateTable = React.createClass({
+  getInitialState: function() {
+    return {
+
+    };
+  },
   render: function() {
     let rows = [];
     let lastDate = null;
@@ -103,32 +60,40 @@ let ScheduleDateTable = React.createClass({
 
     this.props.timeSlots.forEach(function(timeslot) {
 
-        if (timeslot.scheduleDate !== lastDate) {
-
-          let randKey = Math.floor(Math.random() * (max - min + 1)) + min;
-
-          rows.push(
-            <div className='date-row'>
-              <ScheduleDateRow scheduleDate={ timeslot.scheduleDate } key={ randKey } />
-            </div>
-          );
-        }
+      if (timeslot.scheduleDate !== lastDate) {
 
         let randKey = Math.floor(Math.random() * (max - min + 1)) + min;
 
         rows.push(
-          <ScheduleTimeSlotRow startTime={ timeslot.startTime } endTime={ timeslot.endTime } scheduled={ timeslot.scheduled } key={ randKey - 1 } />
+          <div className='date-row'>
+            <ScheduleDateRow
+              scheduleDate={ timeslot.scheduleDate }
+              key={ randKey }
+            />
+          </div>
         );
+      }
 
-        lastDate = timeslot.scheduleDate;
+      let randKey = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    });
+      rows.push(
+        <ScheduleTimeSlotRow
+          startTime = { timeslot.startTime }
+          endTime   = { timeslot.endTime }
+          scheduled = { timeslot.scheduled }
+          key       = { randKey - 1 }
+        />
+      );
+
+      lastDate = timeslot.scheduleDate;
+
+    }.bind(this));
     return (
-          <table className='table'>
-            <tbody>
-              {rows}
-            </tbody>
-          </table>
+      <table className='table'>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
     )
   }
 
@@ -140,7 +105,7 @@ let ScheduleDateRow = React.createClass({
       <div>
         <tr className='date-row'>
           <td colSpan='2' className='text-left white'>
-              { this.props.scheduleDate }
+            { this.props.scheduleDate }
           </td>
           <td className='date-row text-right white'>
             <AddTimeSlotButton />
@@ -155,7 +120,6 @@ let ScheduleDateRow = React.createClass({
 let ScheduleTimeSlotRow = React.createClass({
   render: function() {
     var scheduled = this.props.scheduled ?
-
       <span style={{color: 'red'}}>
         Scheduled
       </span> :
@@ -177,9 +141,9 @@ let ScheduleTimeSlotRow = React.createClass({
             </div>
           </td>
           <td>
-            <span className='pull-right timeslot-right'>
-              {scheduled}
-            </span>
+          <span className='pull-right timeslot-right'>
+            {scheduled}
+          </span>
           </td>
         </tr>
       </div>
@@ -188,51 +152,15 @@ let ScheduleTimeSlotRow = React.createClass({
 
 });
 
-let DeleteTimeSlotButton = React.createClass({
-  render: function() {
-    return(
-      <div>
-        <span>
-          <a href=''>Remove</a>
-        </span>
-      </div>
-    )
-  }
-
-});
-
-let AddTimeSlotButton = React.createClass({
-  render: function() {
-    return(
-      <div>
-        <a className='white' href="">Add Time Slot</a>
-      </div>
-    )
-  }
-
-});
-
-let GenerateICalButton = React.createClass({
-  render: function() {
-    return(
-      <div>
-        <button className='full-width btn btn-primary btn-large'>
-          Generate iCal file
-        </button>
-      </div>
-    )
-  }
-
-});
 
 
 let APPNAME = 'Real Time';
 
 let URLS = [
   {
-   rootUrl: 'http://localhost:8080/webpack-dev-server',
-   schedulerUrl: '/scheduler/175',
-   scheduleeUrl: '/schedulee/175'
+    rootUrl: 'http://localhost:8080/webpack-dev-server',
+    schedulerUrl: '/scheduler/175',
+    scheduleeUrl: '/schedulee/175'
   },
 ];
 
@@ -253,6 +181,6 @@ let TIMESLOTS = [
 
 React.render(
   <ScheduleTable name={ APPNAME } timeSlots={ TIMESLOTS } urls={ URLS }/>,
-  document.getElementById('content')
+    document.getElementById('content')
 );
 
